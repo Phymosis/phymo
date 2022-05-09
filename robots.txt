@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /help/contact
+Disallow: /profile/
+Disallow: /extras/
+Disallow: /extras/playground/jf94jhg03.txt
+
+User-agent: Mediapartners-Google
+Disallow:
