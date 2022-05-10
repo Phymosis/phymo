@@ -27,13 +27,6 @@
   <input type="submit" value="Submit">
 </form> 
 
-<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
-
-
-
-    
-    
-
     </div>
 
     <div id="textShowing" class="split right">
@@ -41,30 +34,30 @@
         
         
       <?php  
+      
+/*
       $servername = "localhost";
       $username = "root";
       $password = "password";
       $dbname = "my_crazy_db";
 
       $serv = new mysqli($servername, $username, $password, $dbname);
-      
+      */
+      require("/var/www/html/phymo/db.php");    
 
-      if ($serv->connect_error) {
-        die("Connection failed: " . $serv->connect_error);
-        exit();
-      }
-      echo "Successfully Connected" . "<br>";
+
+      
       echo "Commentaires:" . "<br>" . "<br>"; 
 
-      $sqlQuery = "SELECT * FROM comments";
+      $sqlQuery = "SELECT * FROM post";
 
-      $res = mysqli_query($serv, $sqlQuery);
+      $res = mysqli_query($db, $sqlQuery);
       if ($res) {
       while($row = mysqli_fetch_array($res)) {
         echo $row['0'] . " " . $row['1'] .  "<br>"; 
     }
     } else {
-      echo "Error: " . "<br>" . mysqli_error($serv);
+      echo "Error: " . "<br>" . mysqli_error($db);
     }
 
     ?>

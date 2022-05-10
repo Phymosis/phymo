@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
-    $db = mysqli_connect('localhost', 'root', 'QrxSgtQ36keW89m', 'phplogin');
+    require("/var/www/html/phymo/db.php");
     $lvl_check_query = "SELECT level FROM `accounts` WHERE username='$username' OR email='$username'";
 
   }
