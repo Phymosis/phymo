@@ -2,24 +2,35 @@
 
 
 $comment =  $_GET['fname'];
+/*
 $servername = "localhost";
 $username = "root";
 $password = "password";
 $dbname = "my_crazy_db";
-
 $serv = new mysqli($servername, $username, $password, $dbname);
-mysqli_prepare("")
-if ($serv->connect_error) {
-  die("Connection failed: " . $serv->connect_error);
+*/
+require("/var/www/html/phymo/db.php");    
+mysqli_prepare($db);
+if ($db->connect_error) {
+  die("Connection failed: " . $db->connect_error);
   exit();
 }
 echo "Connected successfully" . "<br>";
 
-$comment = mysqli_real_escape_string($serv, "$comment");
+$comment = mysqli_real_escape_string($db, "$comment");
 $comment = addslashes("$comment");
-$sqlQuery = "INSERT INTO `comments` (`id`, `value`) VALUES (NULL, '$comment')";
 
-$res = mysqli_query($serv, $sqlQuery);
+
+
+
+
+//corriger la query pour faire matcher les valeurs avec la struct sql
+$sqlQuery = "INSERT INTO `post` (`id`, `value`) VALUES (NULL, '$comment')";
+
+
+
+
+$res = mysqli_query($db, $sqlQuery);
 
 if ($res) {
   echo "Comment Added" . "<br>";
@@ -30,6 +41,6 @@ if ($res) {
 <?php
 }
 else {
-  echo "Error: " . "<br>" . mysqli_error($serv);
+  echo "Error: " . "<br>" . mysqli_error($db);
 }
  ?>

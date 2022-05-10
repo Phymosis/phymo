@@ -9,7 +9,7 @@ $email    = "";
 $errors = array();
 
 // connect to the database
-$db = mysqli_connect('127.0.0.1', 'root', 'QrxSgtQ36keW89m', 'phplogin');
+require("/var/www/html/phymo/db.php");
 
 
 //$errors = $_SESSION['errorsTab'];
@@ -39,22 +39,23 @@ if (isset($_POST['login_user']))
   	}
 	if (count($errors) == 0)
 	{
-  		$password = hash('sha512', $password);
-  		$query = "SELECT * FROM accounts WHERE (username='$username' OR email='$username') AND password='$password'";
+  	$password = hash('sha512', $password);
+  	$query = "SELECT * FROM accounts WHERE (username='$username' OR email='$username') AND password='$password'";
 		$results = mysqli_query($db, $query);
-  		if (mysqli_num_rows($results) == 1) {
-  	  		$_SESSION['username'] = $username;
-  	  		$_SESSION['success'] = "You are now logged in";
-  	  		header('location: index.php');
-  		}
-		else {
-  		
+  	if (mysqli_num_rows($results) == 1) 
+  	{
+  		$_SESSION['username'] = $username;
+  		$_SESSION['success'] = "You are now logged in";
+  		header('location: index.php');
+  	}
+		else 
+		{
 			array_push($errors, "Wrong username/password combination");
-  			$count = count($errors);
+  		$count = count($errors);
 			$_SESSION['errorsTab'] = $errors;
 			header("location: login.php?id={$count}");
 		}
-  	}
+  }
 	else
 	{
 		echo $errors[0];
@@ -97,10 +98,8 @@ if (isset($_POST['reg_user'])) {
 
   // Finally, register user if there are no errors in the form
   if (count($errors) == 0) {
-  	$password =  hash('sha512', $password_1); //md5($password_1); encrypt the password before saving in the database
-
-  	$query = "INSERT INTO accounts (username, email, password)
-  			  VALUES('$username', '$email', '$password')";
+  	$password =  hash('sha512', $password_1); 
+  	$query = "INSERT INTO accounts (username, email, password) VALUES('$username', '$email', '$password')";
   	mysqli_query($db, $query);
   	$_SESSION['username'] = $username;
   	$_SESSION['success'] = "You are registered !";

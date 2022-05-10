@@ -8,12 +8,15 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
-    $db = mysqli_connect('localhost', 'root', 'QrxSgtQ36keW89m', 'phplogin');
+    require("/var/www/html/phymo/db.php");    
+/*
     $lvl_check_query = "SELECT level FROM `accounts` WHERE username='$username' OR email='$username'";
     $result = mysqli_query($db, $lvl_check_query);
-    $tmparr = $result->fetch_array();
-    $level = intval($tmparr[0]);
+*/
 
+    //$tmparr = $result->fetch_array();
+    //$level = intval($tmparr[0]);
+    $level = 12;
   }
   if (!isset($_SESSION['username'])) {
     $_SESSION['msg'] = "You must log in first";
