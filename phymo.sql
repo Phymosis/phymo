@@ -1,11 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 4.9.5deb2
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: May 09, 2022 at 04:19 PM
--- Server version: 8.0.29-0ubuntu0.20.04.3
--- PHP Version: 7.4.3
+/* FILE AUTO GENERATED FOR SQL TEMPLATE ON PHYMOS WEB DEV PROJECT */
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
