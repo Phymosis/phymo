@@ -1,20 +1,9 @@
-<?php 
-include('server.php') ?>
-<!DOCTYPE html>
-<html>
-<head>
-  <title>ProtectWeb Login</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-</head>
-<body>
-  <div class="header">
-  	<h2>Welcome Back On ProtectWeb</h2>
-  </div>
-  <form method="post" action="server.php">
-  	<?php
+<?php
+
+include('server.php');
+
 if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+      session_start();
 }
 
 if (isset($_GET['id'])) {
@@ -25,56 +14,94 @@ if (isset($_GET['id'])) {
   }
 }
 
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <title>Page de Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 
-	?>
-  	<div class="input-group">
-  		<label>
-		<i class="fas fa-user"></i></label>
-  		<input type="text" name="username" >
-  	</div>
-  	<div class="input-group">
-  		<label><i class="fas fa-lock"></i></label></label>
-  		<input type="password" name="password">
-  	</div>
-<p>
-                Not yet a member? <a href="register.php">Sign up</a>
-        </p>
+</head>
+<body>
+  <div class="parent">
+    <div id="particles-js">
+      <nav class="navbar flex">
+      <div class="brand">
+      	<h1><a href="login.php">Phymos</a></h1>
+      </div>
+      <p class="aligncenter">
+        <img src="demo/logo.png" alt="">
+      </p>
+      <ul class="flex"> 
+        <li><a href="register2.php">Sign Up</a></li>
+        <li><a href="land">Guest</a></li>
+      </ul>
+      </nav>
+      <section>
+        <form method="post" class="formplace" action="server.php">
+          <?php include('errors.php'); ?>
+          <input type="text"  name="username" placeholder="username" >
+          <input type="password" name="password" placeholder="password">
+          <button class="button-1" role="button">Login</button>
+		      <p>Not yet a member <a href="register2.php">Sign up</a></p>
+        </form>
+      </section>
+      
+      <script src="particles.js"></script>
+      <script src="demo/js/app.js"></script>
+    
+    </div>
+  </div>
 
-  	<div class="input-group">
-  		<button type="submit" class="btn" name="login_user">Login</button>
-  	</div>
-  </form>
 </body>
 </html>
-
-
-<?php
-
+<?php  
 /*
+<script>
+    var count_particles, stats, update;
+    stats = new Stats;
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
+    count_particles = document.querySelector('.js-count-particles');
+    update = function() {
+      stats.begin();
+      stats.end();
+      if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+        count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+      }
+      requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  </script>
+
+<script>
+    var count_particles, stats, update;
+    stats = new Stats;
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
+    count_particles = document.querySelector('.js-count-particles');
+    update = function() {
+      stats.begin();
+      stats.end();
+      if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+        count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+      }
+      requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  </script>
 
 
-if (!isset($_SESSION['errorsTab']))
-{
-  echo "Not Sey";
-}
-else
-{
-//$errors = $_SESSION['errorsTab'];
-
-//echo count($errors);
-//echo $_SESSION['username'];
-}
-if (isset($_SESSION['errorsTab']))
-{
-  if (count($errors) > 0) { ?>
-  <div class="error">
-        <?php   echo count($errors);
-                foreach ($errors as $error) { ?>
-          <p><?php echo $error ?></p>
-        <?php }
-}?>
-  </div>
-<?php
-}*/
-
+*/
 ?>
