@@ -253,7 +253,7 @@ if (isset($_GET['logout'])) {
 			<li><a href='#'>News</a></li>
 			<li><a href='../user/$n'>My profile</a></li>
 			<li><a href='index.php?logout=1'>Log out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-			<li><div id="gear" style='margin-right: 0%;'><i class='fa fa-gear fa-spin' style='font-size:24px;'></i></div></li>";
+			<li><div id='gear' style='margin-right: 0%;'><i class='fa fa-gear fa-spin' style='font-size:24px;'></i></div></li>";
 
 		}
 		else{
