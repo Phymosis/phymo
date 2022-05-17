@@ -35,7 +35,7 @@ if (isset($_GET['id'])) {
       	<h1><a href="login.php">Phymos</a></h1>
       </div>
       <p class="aligncenter">
-        <img src="demo/logo.png" alt="">
+        <img src="logo.png" alt="">
       </p>
       <ul class="flex"> 
         <li><a href="register2.php">Sign Up</a></li>
@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
           <?php include('errors.php'); ?>
           <input type="text"  name="username" placeholder="username" >
           <input type="password" name="password" placeholder="password">
-          <button class="button-1" role="button">Login</button>
+          <button type='submit' class="button-1" name="login_user"role="button">Login</button>
 		      <p>Not yet a member <a href="register2.php">Sign up</a></p>
         </form>
       </section>

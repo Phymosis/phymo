@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+if(session_status() == PHP_SESSION_NONE){
+	session_start();
+}
+
+if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['username']);
+    header("location: ../login.php");
+}
+?>
 <head>
 	<meta charset="UTF-8">
 	<meta none="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://www.flaticon.com/free-icons/shapes-and-symbols">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Welcome</title>
 	<style>
 		*{
@@ -16,7 +28,7 @@
 			width: 100%;
 			height: 100%;
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-			}
+		}
 
 		nav{
 			padding: 0 50px;
@@ -33,7 +45,7 @@
 
 		.navbar{
 			background-color: #2c2c2c;
-			height: 70px;
+			height: 50px;
 			cursor: pointer;
 		}
 
@@ -231,10 +243,24 @@
 	<div class="logo">
 		<a href="#"><img src="../logo.png" alt=""></a>
 	</div>
-	<ul class="flex" style="position: absolute; right: 50px;"> 
-		<li><a href="#">Log In</a></li>
-		<li><a href="#">Sign Up</a></li>
-		<li><a href="#">Guest</a></li>
+	<ul class="flex" style="position: absolute; right: 30px;"> 
+		<?php
+		$ar = "";
+		if(isset($_SESSION["username"]))
+		{
+			$n = $_SESSION["username"];
+			echo"
+			<li><a href='#'>News</a></li>
+			<li><a href='../user/$n'>My profile</a></li>
+			<li><a href='index.php?logout=1'>Log out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+			<li><div id="gear" style='margin-right: 0%;'><i class='fa fa-gear fa-spin' style='font-size:24px;'></i></div></li>";
+
+		}
+		else{
+			echo "<li><a href='../login.php'>Log In</a></li>
+			<li><a href='../register2.php'>Sign Up</a></li>";
+		}
+		?>
 	</ul>
 </nav>
 
@@ -251,6 +277,7 @@
 		
 		<div class="banner-text">
 			<h1>Welcome to PHYMOS</h1>
+		</div>
 </div>
 
 <div class="globe">
@@ -261,14 +288,14 @@
 		<?php
 		   $i = 0;
 			$planets = [
-				"blob" => "",
-				"genial" => "",
-				"excellent" => "",
-				"brillant" => "",
-				"sublime" => "",
-				"super" => "",
-				"fantastique" => "",
-				"magistral" => "",
+				"blob" => "'../challenge/challenge1.php'",
+				"genial" => "'../challenge/challenge2.php'",
+				"excellent" => "'../challenge/challenge3.php'",
+				"brillant" => "'../challenge/challenge4.php'",
+				"sublime" => "'../challenge/challenge5.php'",
+				"super" => "'../challenge/challenge6.php'",
+				"fantastique" => "'../challenge/challenge7.php'",
+				"magistral" => "'../challenge/challenge8.php'",
 			];
 		?>
 		<?php foreach ($planets as $label => $addr) { ?>
@@ -278,14 +305,17 @@
 			?>
 			<div onclick="document.location=<?=$addr; ?>" class="icon" style="left: <?=250 + $x - 50; ?>px; top: <?=250 + $y - 50; ?>px;">
 				<img src="" alt="">
+				<a href >
 			</div>
-			<?php $i = $i + 1; ?>
+			<?php $i = $i + 1;?>
 		<?php } ?>
 	</div>
-
+	<script>
+	var g = document.getElementById('gear');
+	var oldMousedown = g.onmousedown;
+		g.onmousedown = function () {
+    console.log("User moused down");
+    if(oldMousedown) oldMousedown();
+};
+	</script>
 </body>
-		
-
-
-
-
