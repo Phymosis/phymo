@@ -25,7 +25,6 @@ CREATE TABLE `post` (
   `parentid` int DEFAULT NULL,
   `post_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `msg` text NOT NULL,
-  `likes` int NOT NULL
 ) ;
 
 ALTER TABLE `accounts`

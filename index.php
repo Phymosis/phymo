@@ -29,7 +29,7 @@ if (isset($_SESSION['username'])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -44,8 +44,8 @@ if (isset($_SESSION['username'])) {
     <?php if (isset($_SESSION['success'])) : ?>
       <div class="error success" >
         <h3>
-          <?php 
-            echo $_SESSION['success']; 
+          <?php
+            echo $_SESSION['success'];
             unset($_SESSION['success']);
           ?>
         </h3>
@@ -53,12 +53,28 @@ if (isset($_SESSION['username'])) {
     <?php endif ?>
 
     <!-- logged in user information -->
-    
 
     <?php  if (isset($_SESSION['username'])) : ?>
         <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
-        <p> </p>
-        
+       <p> </p>
+
+    <head>
+        <link rel="stylesheet" href="app.css" />
+    </head>
+    <body>
+            <!-- <h1>&#x2728;Search Your Friends !&#x2728;</h1> -->
+            <div id="searchWrapper">
+                <input
+                    type="text"
+                    name="searchBar"
+                    id="searchBar"
+                    placeholder="search a profile"
+                />
+            </div>
+            <ul id="charactersList"></ul>
+        <script src="app.js"></script>
+    </body>
+
 <p> <a href="mur.php" style="color: blue;">My profile</a> </p>
 <?php if ($level >= 1) : ?>
     <p> <a href="challenge/challenge1.php" style="color: blue;">Challenge 1</a> </p>
@@ -77,13 +93,12 @@ if (isset($_SESSION['username'])) {
 <?php else : ?>
     <p> <a style="color: red;">Challenge 3</a> </p>
 <?php endif; ?>
-       
+
 <?php if ($level >= 4) : ?>
     <p> <a href="challenge/challenge4.php" style="color: blue;">Challenge 4</a> </p>
 <?php else : ?>
     <p> <a style="color: red;">Challenge 4</a> </p>
 <?php endif; ?>
-
 
 <?php if ($level >= 5) : ?>
     <p> <a href="challenge/challenge5.php" style="color: blue;">Challenge 5</a> </p>
@@ -132,7 +147,6 @@ if (isset($_SESSION['username'])) {
     <p> </p>
     <p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
 <?php endif ?>
-    
 
     <?php  if ($_SESSION['username'] === 'admin' || $_SESSION['username'] === 'julien.cohen-scali@epita.fr') : ?>
         <p> <a href="/phpmyadmin" style="color: red;">Php My Admin</a> </p>

@@ -35,10 +35,6 @@ if (isset($_SESSION['username'])) {
     <h1>Control Panel</h1>
 </div>
 <div class="content">
-    
-
-    
-
     <?php  if (isset($_SESSION['username'])) : ?>
         <p><h2>Welcome <strong><?php echo $_SESSION['username']; ?></strong> in your account panel !</h2></p>
         <p> </p>

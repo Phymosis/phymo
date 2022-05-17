@@ -11,36 +11,56 @@ if ($db->connect_error) {
   die("Connection failed: " . $db->connect_error);
   exit();
 }
-//echo "Connected successfully" . "<br>";
 
-$comment = $_POST["subject"];
-$comment = mysqli_real_escape_string($db, "$comment");
-$likes = 0;
 
+if(isset($_POST["subject"])){
+	$comment = $_POST["subject"];
+	$comment = mysqli_real_escape_string($db, "$comment");
+	$parentid = NULL;
+}
+if(isset($_POST["sub1"])){
+	$comment = $_POST["sub1"];
+	$parentid = $_POST['id_parent'];
+
+	$rq = mysqli_query($db, "SELECT * FROM `post` WHERE id = '$parentid'");
+	$rq = mysqli_fetch_assoc($rq);
+
+	if(empty($rq)){
+		header('Location: com.php');
+		//exit();
+	}
+	$comment = mysqli_real_escape_string($db, "$comment");
+}
+if($comment == ""){
+	header('Location: com.php');
+}
 
 date_default_timezone_set('Europe/Paris');
-//echo $timezone;
+
 $date = new DateTime('now');
 $datetime = ''.$date->format('y-m-d h:i:s');
-//echo $datetime . "\n";
+
 $username = $_SESSION["username"];
 
 $postername = mysqli_query($db, "SELECT `id` FROM `accounts` WHERE username = '$username'");
 $postername = mysqli_fetch_assoc($postername)["id"];
 
-$sqlQuery = "INSERT INTO `post` (`idowner`,`msg`,`likes`,`temporality`,`parentid`) VALUES ('$postername', '$comment',0,'$datetime',NULL)";
 
+
+if(is_null($parentid)){
+	$sqlQuery = "INSERT INTO `post` (`idowner`,`msg`,`post_date`,`parentid`) VALUES ('$postername', '$comment','$datetime',NULL)";
+}
+else{
+	$sqlQuery = "INSERT INTO `post` (`idowner`,`msg`,`post_date`,`parentid`) VALUES ('$postername', '$comment','$datetime','$parentid')";
+}
 //echo $sqlQuery . "<br>";
 
 $res = mysqli_query($db, $sqlQuery);
 
 if ($res) {
-  //echo "Comment Added" . "<br>";
-  //oecho $comment . " writed by : " . $username;
   header('Location: com.php');
 ?>
 <?php
-//<a href="com.php">GO back to comment page <br></a>
 }
 else {
   echo "Error: " . "<br>" . mysqli_error($db);
