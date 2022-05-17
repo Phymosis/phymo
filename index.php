@@ -1,14 +1,13 @@
-<?php 
+<?php
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
 
-
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
-    require("/var/www/html/phymo/db.php");    
+    require("/var/www/html/phymo/db.php");
 /*
     $lvl_check_query = "SELECT level FROM `accounts` WHERE username='$username' OR email='$username'";
     $result = mysqli_query($db, $lvl_check_query);
@@ -60,7 +59,7 @@ if (isset($_SESSION['username'])) {
         <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
         <p> </p>
         
-
+<p> <a href="mur.php" style="color: blue;">My profile</a> </p>
 <?php if ($level >= 1) : ?>
     <p> <a href="challenge/challenge1.php" style="color: blue;">Challenge 1</a> </p>
 <?php else : ?>
@@ -119,15 +118,16 @@ if (isset($_SESSION['username'])) {
 <?php if ($level >= 10) : ?>
     <p> <a href="challenge/challenge10.php" style="color: blue;">Challenge 10</a> </p>
 <?php else : ?>
-    <p> <a style="color: red;">Challenge 10</a> </p>
+    //<p> <a style="color: red;">Challenge 10</a> </p>
 <?php endif; ?>
 
 <?php if ($level >= 10) : ?>
     <p> <a href="challenge/challenge11.php" style="color: blue;">Challenge 11</a> </p>
 <?php else : ?>
-    <p> <a style="color: red;">Challenge 11</a> </p>
+    //<p> <a style="color: red;">Challenge 11</a> </p>
 <?php endif; ?>
 
+	<p> <a href="com.php" style="color: grey">Comments !!</a> </p>
     <p> <a href="account.php" style="color: red;">Manage Account</a> </p>
     <p> </p>
     <p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
