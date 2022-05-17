@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('server.php') ?>
 <!DOCTYPE html>
 <html>
@@ -20,13 +20,12 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_GET['id'])) {
   if ($_GET['id'] >= 1)
   {
-    $errors = $_SESSION['errorsTab']; 
+    $errors = $_SESSION['errorsTab'];
     include('errors.php');
   }
 }
 
-
-	?>
+?>
   	<div class="input-group">
   		<label>
 		<i class="fas fa-user"></i></label>
