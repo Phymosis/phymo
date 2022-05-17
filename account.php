@@ -5,13 +5,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 
-
-if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    require("/var/www/html/phymo/db.php");
-    $lvl_check_query = "SELECT level FROM `accounts` WHERE username='$username' OR email='$username'";
-
-  }
   if (!isset($_SESSION['username'])) {
     $_SESSION['msg'] = "You must log in first";
     header('location: login.php');
@@ -21,13 +14,21 @@ if (isset($_SESSION['username'])) {
     unset($_SESSION['username']);
     header("location: login.php");
   }
+  if (isset($_SESSION['username'])) {
+
+    $username = $_SESSION['username'];
+    require_once("/var/www/html/phymo/db.php");
+    
+  }
+  $actualToken = getUserToken($db, $username);
+
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Account Management</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
@@ -35,27 +36,128 @@ if (isset($_SESSION['username'])) {
     <h1>Control Panel</h1>
 </div>
 <div class="content">
-    <?php  if (isset($_SESSION['username'])) : ?>
-        <p><h2>Welcome <strong><?php echo $_SESSION['username']; ?></strong> in your account panel !</h2></p>
-        <p> </p>
-        
-<p><strong>Change Password:</strong></p>
-<form action="serverOld.php" method="post">
-Username: <input type="text" name="username"><br>
-Password: <input type="text" name="password"><br>
-<input type="submit">
+
+<p><h2>Welcome <strong><?php echo $_SESSION['username']; ?></strong> in your account panel !</h2></p>
+        <p> </p>    
+
+    <?php
+        if(array_key_exists('changePass-button', $_POST)) {
+            changePass($db, $username);
+        }
+        function changePass($db, $username) {
+            $newPass = hash('sha512', $_POST['newPass']);
+            $oldPass = hash('sha512', $_POST['oldPass']);
+            $repNewPass = hash('sha512', $_POST['repNewPass']);
+            $token = getUserToken($db,$username);
+            
+            $query = "SELECT password FROM accounts WHERE username='$username' AND token='$token'";
+            $result = mysqli_query($db,$query);
+            $row = mysqli_fetch_assoc($result);
+            $realOldPass = $row['password'];
+
+            if ($realOldPass === $oldPass) {
+                if ($newPass == $repNewPass) {
+                    $username = $_SESSION["username"];
+                    $query = "UPDATE accounts SET password='$newPass' WHERE username='$username' AND token='$token'";
+                    mysqli_query($db, $query);
+                    echo '<script type="text/javascript">alert("'."Password Updated !".'");</script>'; 
+                    
+                }
+                else
+                {
+                    echo '<script type="text/javascript">alert("'."Password does not match !".'");</script>'; 
+                }
+            }
+            else
+            {
+                echo '<script type="text/javascript">alert("'."Wrong Password !".'");</script>';
+            }
+        }
+
+
+        if(array_key_exists('createToken-button', $_POST)) {
+            createTokenbutton($db);
+        }
+        function createTokenbutton($db) {
+            $token = sha1(mt_rand(1, 90000) . 'SALT');
+            $username = $_SESSION["username"];
+            $query = "UPDATE accounts SET token='$token' WHERE username='$username'";
+            mysqli_query($db, $query);
+            header("Refresh:0");
+        }
+
+
+        if(array_key_exists('delAccount-button', $_POST)) {
+            deleteAccount($db);
+        }
+        function deleteAccount($db) {
+            $token = sha1(mt_rand(1, 90000) . 'SALT');
+            $username = $_SESSION["username"];
+            $query = "DELETE FROM `accounts` WHERE `accounts`.`username`='$username'";
+            mysqli_query($db, $query);
+            unset($_SESSION['username']);
+            header("Refresh:0");
+        }
+    ?>
+
+    <p><strong><h3>Token Manager:</h3></strong></p>
+<?php
+
+if ($actualToken == '') {?>
+
+    <p><strong><h4 style="color: red;">No Token Set !</h4></strong></p>
+    <form method="post">
+        <input type="submit" name="createToken-button" class="button" value="Create Token" />  
+    </form><?php
+}
+else 
+{
+    ?><p><strong><h4 style="color: green;">Token OK.</h4></strong></p><?php
+}
+ 
+
+
+if (isset($_SESSION['username'])) : ?>       
+    <p><strong><h3>Change Password:</h3></strong></p>
+
+
+<?php
+
+if ($actualToken != '') {
+    ?>
+<div class="input-group">
+    <br><form method="post">
+        Old Password: <input type="text" name="oldPass"><br>
+        New Password: <input type="text" name="newPass"><br>
+        Repeat Password: <input type="text" name="repNewPass"><br>
+        <input type="hidden" name="userToken" value="<?php echo $actualToken ?>  ">
+        <input type="submit" name="changePass-button" class="button" value="Change Password" />
+    </form>
+</div>
+<?php
+}
+else{
+?>
+            <p><strong><h4 style="color: red;">Can't Change Password Without Token !</h4></strong></p>
+ 
+
+    </form>
+<?php
+}
+?>
+
+<p><strong><h3 >Delete Your Account:</h3></strong></p>
+<form method="post">
+    <input type="submit" name="delAccount-button" class="button" value="Delete Account" />
 </form>
 
-<p><strong><h3><a href="delete.php" style="color: red;">Delete Account</a></h3></strong></p>
 
         <p> </p>
         <p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
     <?php endif ?>
     
 
-    <?php  if ($_SESSION['username'] === 'admin' || $_SESSION['username'] === 'julien.cohen-scali@epita.fr') : ?>
-        <p> <a href="/phpmyadmin" style="color: red;">Php My Admin</a> </p>
-    <?php endif ?>
+    
 
 
 
