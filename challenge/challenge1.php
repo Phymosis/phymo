@@ -1,12 +1,6 @@
 <?php
 
 session_start();
-if(!isset($_SESSION['username'])) {
-        echo "Please Log before Playing";
-        header("Location: ../login.php");
-        die();
-}
-
 ?>
 
 <!DOCTYPE html>
