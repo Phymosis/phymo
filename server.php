@@ -104,7 +104,7 @@ if (isset($_POST['reg_user'])) {
   	$_SESSION['username'] = $username;
   	$_SESSION['success'] = "You are registered !";
 	//echo $query;
-  	header('location: index.php');
+  	header('location: land');
   }
 }
 

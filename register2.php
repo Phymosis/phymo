@@ -47,8 +47,8 @@ if (isset($_GET['id'])) {
           <?php include('errors.php'); ?>
           <input type="text"  name="username" placeholder="username" >
           <input type="text" name="email" placeholder="email">
-          <input type="password"  name="password" placeholder="password" >
-          <input type="password" name="password" placeholder="Confirmation password">
+          <input type="password"  name="password_1" placeholder="password" >
+          <input type="password" name="password_2" placeholder="Confirmation password">
           <button type="submit" class="button-2" name="reg_user">Register</button>
           <p> Already a member?<a href="login.php">Login</a></p>
         </form>
