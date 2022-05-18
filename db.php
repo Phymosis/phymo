@@ -38,11 +38,6 @@ function getDbHost() {
         else{
             $host = '82.64.10.157';
         }
-        if (isset($_SESSION['username']) ) {
-            if ($_SESSION['username'] === 'admin') {
-                echo $host . "<br>";                
-            }
-        }
     }
     return $host;
 }

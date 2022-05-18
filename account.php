@@ -17,8 +17,7 @@ if (session_status() == PHP_SESSION_NONE) {
   if (isset($_SESSION['username'])) {
 
     $username = $_SESSION['username'];
-    require_once("/var/www/html/phymo/db.php");
-    
+    require_once("/var/www/html/db.php");
   }
   $actualToken = getUserToken($db, $username);
 
@@ -91,7 +90,6 @@ if (session_status() == PHP_SESSION_NONE) {
             deleteAccount($db);
         }
         function deleteAccount($db) {
-            $token = sha1(mt_rand(1, 90000) . 'SALT');
             $username = $_SESSION["username"];
             $query = "DELETE FROM `accounts` WHERE `accounts`.`username`='$username'";
             mysqli_query($db, $query);

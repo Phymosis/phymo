@@ -9,7 +9,7 @@ $email    = "";
 $errors = array();
 
 // connect to the database
-require("/var/www/html/phymo/db.php");
+require("/var/www/html/db.php");
 
 
 //$errors = $_SESSION['errorsTab'];

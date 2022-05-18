@@ -11,22 +11,22 @@ if (isset($_SESSION['username'])) {
 
 
 
+if(array_key_exists('subscribe-button', $_POST)) {
+    subscribeToAccount($db);
+}
 
-if(array_key_exists('delAccount-button', $_POST)) {
-            deleteAccount($db);
-        }
-        function deleteAccount($db) {
-            $token = sha1(mt_rand(1, 90000) . 'SALT');
-            $username = $_SESSION["username"];
-            $query = "DELETE FROM `accounts` WHERE `accounts`.`username`='$username'";
-            mysqli_query($db, $query);
-            unset($_SESSION['username']);
-            header("Refresh:0");
-        }
+function subscribeToAccount($db) {
+    $token = sha1(mt_rand(1, 90000) . 'SALT');
+    $username = $_SESSION["username"];
+    $query = "DELETE FROM `accounts` WHERE `accounts`.`username`='$username'";
+    mysqli_query($db, $query);
+    unset($_SESSION['username']);
+    header("Refresh:0");
+}
 
 
 
-require_once("/var/www/html/phymo/db.php");
+require_once("/var/www/html/db.php");
 $usernameProfile = $_GET['user'];
 
 $id = getUserId($db, $usernameProfile);
@@ -34,18 +34,19 @@ if ($id != NULL) {
     echo "Profile Page:";
     echo $usernameProfile . "<hr>";
     if ($isLogged) {
-    ?>
-    <form method="post">
-            <input type="submit" name="createToken-button" class="button" value="Subscribe to <?php echo $usernameProfile; ?>" />  
-
-        </form>
-    <?php
+	if ($usernameProfile != $username){
+	?>
+		<form method="post">
+			<input type="submit" name="subscribe-button" class="button" value="Subscribe to <?php echo $usernameProfile; ?>" />
+		</form>
+	<?php
+	}
     }
     else{
     ?>
 
     <p>You need to be logged before subcribing to someone.</p>
-    <p>Go to <a href="http://localhost/phymo/login.php">login page to login</a> or <a href="http://localhost/phymo/register.php">Register page to create an account.</a></p>
+    <p>Go to <a href="http://localhost/login.php">login page to login</a> or <a href="http://localhost/register.php">Register page to create an account.</a></p>
 
     <?php
     }
@@ -64,7 +65,6 @@ if ($id != NULL) {
         $message = $row[4];
         $date = $row[3];
         print("By " . $usernameProfile . ":<br>" . $message . "<br>Posted $date.") . "<hr>" ;
-        
     }
 }
 else
