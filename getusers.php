@@ -26,7 +26,7 @@ function getDbHost() {
 
 $db = mysqli_connect($host, $userdb, $passdb, $dbname);
 */
-require_once('db.php');
+require_once('../db.php');
 $result = mysqli_query($db, "SELECT username FROM `accounts`");
 
 $data = array();

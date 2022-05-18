@@ -1,41 +1,66 @@
-<?php include('server.php') ?>
+<?php
+
+include('server.php');
+
+if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+}
+
+if (isset($_GET['id'])) {
+  if ($_GET['id'] >= 1)
+  {
+    $errors = $_SESSION['errorsTab']; 
+    include('errors.php');
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ProtectWeb Register</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+  <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <title>Register Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 <body>
-  <div class="header">
-  	<h2>Welcome On ProtectWeb</h2>
-  </div>
-  <form method="post" action="register.php">
-  	<?php include('errors.php'); ?>
-  	<div class="input-group">
-  	  <label for="username">
-	  <i class="fas fa-user"></i></label>
-  	  <input type="text" name="username" placeholder="Enter Username">
-  	</div>
+  <div class="parent">
+    <div id="particles-js">
+      <nav class="navbar flex">
+      <div class="brand">
+        <a href="register2.php">Phymos</a>
+      </div>
+      <p class="aligncenter">
+        <img src="images/logo.png" >
+      </p>
+      <ul class="flex"> 
+        <li><a href="login.php">Login</a></li>
+        <li><a href="land">Guest</a></li>
+      </ul>
+      </nav>
+      <section>
+        <form method="post" class="formplace-2" action="server.php">
+          <?php include('errors.php'); ?>
+          <input type="text"  name="username" placeholder="username" >
+          <input type="text" name="email" placeholder="email">
+          <input type="password"  name="password_1" placeholder="password" >
+          <input type="password" name="password_2" placeholder="Confirmation password">
+          <button type="submit" class="button-2" name="reg_user">Register</button>
+          <p> Already a member?<a href="login.php">Login</a></p>
+        </form>
+      </section>
 
-  	<div class="input-group">
-  	  <label for="email"><i class="fas fa-envelope"></i></label>
-  	  <input type="email" name="email" placeholder="Enter Email">
-  	</div>
-  	<div class="input-group">
-  	  <label><i class="fas fa-lock"></i></label>
-  	  <input type="password" name="password_1" placeholder="Enter Password">
-  	</div>
-  	<div class="input-group">
-  	  <label for="password_2"><i class="fas fa-lock"></i></label>
-  	  <input type="password" name="password_2" placeholder="Confirm Password">
-  	</div>
-  	<div class="input-group">
-  	  <button type="submit" class="btn" name="reg_user">Register</button>
-  	</div>
-  	<p>
-  		Already a member? <a href="login.php">Sign in</a>
-  	</p>
-  </form>
+      <script src="particles.js"></script>
+      <script src="js/app.js"></script>
+    
+    </div>
+  </div>
+
 </body>
 </html>
+
+

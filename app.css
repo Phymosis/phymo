@@ -22,6 +22,8 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-gap: 20px;
+    z-index: 30;
+    position: absolute;
 }
 
 .character {
@@ -54,21 +56,24 @@ h1 {
 }
 
 #searchBar {
-    width: 100%;
+    width: 50%;
     height: 32px;
     border-radius: 3px;
     border: 1px solid #eaeaea;
     padding: 5px 10px;
     font-size: 12px;
+    margin-left: 25%;
+    background-color: grey;
+    border-color: #edc967;
 }
 
 #searchWrapper {
     position: relative;
 }
 
-#searchWrapper::after {
+/*#searchWrapper::after {
     content: '🔍';
     position: absolute;
     top: 7px;
     right: 15px;
-}
+}*/

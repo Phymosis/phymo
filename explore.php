@@ -11,8 +11,8 @@ if (isset($_SESSION['username'])) {
 
 
 
-require_once("/var/www/html/phymo/db.php");
-printf("This page is the main Page where you can explore the content of the people you are following");
+require_once("/var/www/html/db.php");
+printf("This page is the Explorer Page. You can explore the content of the people you are following and discover New Content.");
 
 if (!$isLogged) {
 ?>
