@@ -10,10 +10,12 @@ if (isset($_GET['logout'])) {
     unset($_SESSION['username']);
     header("location: ../login.php");
 }
+
 ?>
 <head>
 	<meta charset="UTF-8">
 	<meta none="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="app.css">
 	<link href="https://www.flaticon.com/free-icons/shapes-and-symbols">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Welcome</title>
@@ -51,10 +53,11 @@ if (isset($_GET['logout'])) {
 
 
 		.brand{
+			color: #edc967;
+			margin-top: 30px;
 			text-transform: uppercase;
 			font-size: 16px;
 			cursor: pointer;
-			color: #edc967;
 		}
 
 
@@ -111,7 +114,7 @@ if (isset($_GET['logout'])) {
 			margin: 0 auto;
 			animation: orbit 60s linear 0s infinite;
 		}
-		
+
 		@keyframes orbit{
 			to{
 				transform: rotate(360deg);
@@ -128,13 +131,12 @@ if (isset($_GET['logout'])) {
 			transition: all ease 0.5s;
 			background: radial-gradient(at 75% 25%, gray, black);
 		}
-		
+
 		.icon:hover{
 			border-color: #edc967;
 			background-color: #edc967;
 			box-shadow: 0 4px 94px #d6bd5a;
 		}
-		
 
 		li{
 			list-style: none;
@@ -148,17 +150,16 @@ if (isset($_GET['logout'])) {
 			font-weight: 400;
 		}
 
-		html,body{ 
+		html,body{
 			width:100%;
 			height:100%;
 			background: linear-gradient(#696969 75%, black);
 		}
 
-		
+
 		html{
 		  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 		}
-		
 
 		body{
 		  font: normal 75% Arial, Helvetica, sans-serif;
@@ -229,31 +230,38 @@ if (isset($_GET['logout'])) {
 			background: linear-gradient(to top, #2c2c2c, transparent);
 			box-shadow: 0 4px 94px #2c2c2c;
 		}
-
+		/*.content{
+			position: absolute;
+			align-items: center;
+			height: 100px;
+			top: calc((100% - 100px) / 2);
+		}*/
 	</style>
 </head>
 
-<body style="overflow-y: hidden;">
+<body style="overflow-x: hidden; overflow-y: hidden;">
 
 
 <nav class="navbar flex">
 	<div class="brand">
-		<h1>Phymos</h1>
+		<h1 style="color: #edc967">Phymos</h1>
 	</div>
 	<div class="logo">
-		<a href="#"><img src="../logo.png" alt=""></a>
+		<a href="../land"><img src="../logo.png" alt=""></a>
 	</div>
-	<ul class="flex" style="position: absolute; right: 30px;"> 
+	<ul class="flex" style="position: absolute; right: 30px;">
 		<?php
 		$ar = "";
 		if(isset($_SESSION["username"]))
 		{
 			$n = $_SESSION["username"];
+			$loc = "'../account.php'";
+			$res = "document.location=$loc";
 			echo"
 			<li><a href='#'>News</a></li>
 			<li><a href='../user/$n'>My profile</a></li>
 			<li><a href='index.php?logout=1'>Log out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-			<li><div id='gear' style='margin-right: 0%;'><i class='fa fa-gear fa-spin' style='font-size:24px;'></i></div></li>";
+			<li><div onclick=$res id='gear' style='color: grey;'><i class='fa fa-gear fa-spin' style='font-size:27px;'></i></div></li>";
 
 		}
 		else{
@@ -263,7 +271,6 @@ if (isset($_GET['logout'])) {
 		?>
 	</ul>
 </nav>
-
 <div class="banner">
 	<div class="asteroid">
 		<div class="comet"></div>
@@ -274,10 +281,23 @@ if (isset($_GET['logout'])) {
 		<div class="comet"></div>
 		<div class="comet"></div>
 	</div>
-		
 		<div class="banner-text">
-			<h1>Welcome to PHYMOS</h1>
+			<!--<h1>Welcome to PHYMOS</h1> -->
 		</div>
+</div>
+<div class="content">
+
+            <!--<h1>&#x2728;Search Your Friends !&#x2728;</h1>-->
+            <div id="searchWrapper">
+                <input
+                    type="text"
+                    name="searchBar"
+                    id="searchBar"
+                    placeholder="search a profile"
+                />
+            </div>
+            <ul id="charactersList"></ul>
+       <script src="app.js"></script>
 </div>
 
 <div class="globe">
@@ -310,12 +330,4 @@ if (isset($_GET['logout'])) {
 			<?php $i = $i + 1;?>
 		<?php } ?>
 	</div>
-	<script>
-	var g = document.getElementById('gear');
-	var oldMousedown = g.onmousedown;
-		g.onmousedown = function () {
-    console.log("User moused down");
-    if(oldMousedown) oldMousedown();
-};
-	</script>
 </body>
