@@ -35,7 +35,7 @@ const displayCharacters = (characters) => {
         .map((character) => {
             return `
             <li class="character" style="position: sticky; width: 75%;">
-                <a href="../user/${character['username']}"><button style="z-index=30; position: absolute;text-align: center;">${character["username"]}</button></a>
+                <a href="../u/${character['username']}"><button style="z-index=30; position: absolute;text-align: center;">${character["username"]}</button></a>
             </li>
         `;
         })
