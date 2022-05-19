@@ -9,8 +9,6 @@ if (isset($_SESSION['username'])) {
 }
 
 
-
-
 require_once("/var/www/html/db.php");
 printf("This page is the Explorer Page. You can explore the content of the people you are following and discover New Content.");
 
@@ -24,8 +22,22 @@ else{
 ?>
 
 <p>Go Explore !</p>
-
 <?php
+
+
+$query = "SELECT following FROM account WHERE username='$username'";
+$res = mysqli_query($db, $query);
+if (!res) {
+    // code...
+}
+
+
+
+
+
+
+
+
 }
 
 
